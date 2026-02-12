@@ -28,10 +28,7 @@
     padding-bottom: 100px;
   }
   .container { max-width: 900px; margin: 0 auto; }
-  header {
-    text-align: center;
-    padding: 32px 0 24px;
-  }
+  header { text-align: center; padding: 32px 0 24px; }
   header h1 {
     font-size: 2.2em;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -40,7 +37,7 @@
     background-clip: text;
     margin-bottom: 6px;
   }
-  header p { color: var(--muted); font-size: 0.95em; }
+  header p { display: none; }
   .section {
     background: var(--card);
     border-radius: 16px;
@@ -54,338 +51,221 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
   }
-  .section h2 span { font-size: 1.3em; }
+  .section h2 span.icon { font-size: 1.3em; }
 
   /* WHO selector */
-  .who-tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
+  .who-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
   .who-tab {
-    padding: 8px 18px;
-    border-radius: 24px;
-    border: 2px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 600;
-    transition: all 0.2s;
+    padding: 8px 18px; border-radius: 24px; border: 2px solid var(--border);
+    background: transparent; color: var(--text); cursor: pointer;
+    font-size: 0.95em; font-weight: 600; transition: all 0.2s;
   }
   .who-tab:hover { border-color: var(--accent); }
-  .who-tab.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
+  .who-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
   /* Month grid */
-  .month-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  @media (max-width: 500px) {
-    .month-grid { grid-template-columns: repeat(3, 1fr); }
-  }
+  .month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+  @media (max-width: 500px) { .month-grid { grid-template-columns: repeat(3, 1fr); } }
   .month-btn {
-    padding: 14px 8px;
-    border-radius: 12px;
-    border: 2px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 500;
-    transition: all 0.2s;
-    text-align: center;
+    padding: 14px 8px; border-radius: 12px; border: 2px solid var(--border);
+    background: transparent; color: var(--text); cursor: pointer;
+    font-size: 0.9em; font-weight: 500; transition: all 0.2s; text-align: center;
   }
   .month-btn:hover { border-color: var(--green); background: rgba(0,184,148,0.1); }
-  .month-btn.available {
-    background: rgba(0,184,148,0.2);
-    border-color: var(--green);
-    color: var(--green);
-    font-weight: 700;
-  }
-  .month-btn.unavailable {
-    background: rgba(225,112,85,0.15);
-    border-color: var(--red);
-    color: var(--red);
-    font-weight: 700;
-    text-decoration: line-through;
-  }
-  .month-btn.no-response {
-    opacity: 0.5;
-  }
+  .month-btn.available { background: rgba(0,184,148,0.2); border-color: var(--green); color: var(--green); font-weight: 700; }
+  .month-btn.unavailable { background: rgba(225,112,85,0.15); border-color: var(--red); color: var(--red); font-weight: 700; text-decoration: line-through; }
+  .month-btn.no-response { opacity: 0.5; }
   .pto-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: var(--bg);
-    color: var(--text);
-    font-size: 0.9em;
-    margin-top: 8px;
-    resize: none;
-    font-family: inherit;
+    width: 100%; padding: 12px; border-radius: 10px; border: 2px solid var(--border);
+    background: var(--bg); color: var(--text); font-size: 0.9em; margin-top: 8px;
+    resize: none; font-family: inherit;
   }
   .pto-input:focus { outline: none; border-color: var(--accent); }
   .pto-input::placeholder { color: var(--muted); }
 
   /* Overlap display */
-  .overlap-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-  @media (max-width: 500px) {
-    .overlap-grid { grid-template-columns: repeat(3, 1fr); }
-  }
+  .overlap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  @media (max-width: 500px) { .overlap-grid { grid-template-columns: repeat(3, 1fr); } }
   .overlap-cell {
-    padding: 12px 8px;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 0.85em;
-    border: 2px solid var(--border);
-    background: var(--bg);
+    padding: 12px 8px; border-radius: 12px; text-align: center;
+    font-size: 0.85em; border: 2px solid var(--border); background: var(--bg);
   }
   .overlap-cell .month-name { font-weight: 700; margin-bottom: 4px; }
   .overlap-cell .count { font-size: 1.4em; font-weight: 800; }
   .overlap-cell .names { font-size: 0.75em; color: var(--muted); margin-top: 4px; line-height: 1.3; }
-  .overlap-cell.best {
-    border-color: var(--green);
-    background: rgba(0,184,148,0.1);
-  }
+  .overlap-cell.best { border-color: var(--green); background: rgba(0,184,148,0.1); }
   .overlap-cell.best .count { color: var(--green); }
-  .overlap-cell.good {
-    border-color: var(--orange);
-    background: rgba(253,203,110,0.08);
-  }
+  .overlap-cell.good { border-color: var(--orange); background: rgba(253,203,110,0.08); }
   .overlap-cell.good .count { color: var(--orange); }
   .overlap-cell.bad .count { color: var(--red); }
+
+  /* Recommendation box */
+  .rec-box {
+    background: var(--bg); border-radius: 14px; padding: 20px;
+    margin-top: 16px; border: 2px solid var(--green);
+    position: relative; overflow: hidden;
+  }
+  .rec-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--accent2));
+  }
+  .rec-box h3 { color: var(--green); font-size: 1em; margin-bottom: 10px; }
+  .rec-window {
+    padding: 12px 16px; background: rgba(0,184,148,0.08); border-radius: 10px;
+    margin-bottom: 10px; border-left: 3px solid var(--green);
+  }
+  .rec-window .rec-months { font-weight: 800; font-size: 1.1em; color: var(--green); }
+  .rec-window .rec-detail { font-size: 0.85em; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+  .rec-window .rec-detail strong { color: var(--text); }
+  .rec-nudge {
+    margin-top: 12px; padding: 10px 14px; background: rgba(253,203,110,0.1);
+    border-radius: 10px; font-size: 0.85em; color: var(--orange); line-height: 1.5;
+  }
+  .rec-nudge strong { color: var(--orange); }
 
   /* Destinations */
   .dest-list { display: flex; flex-direction: column; gap: 10px; }
   .dest-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    background: var(--bg);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; background: var(--bg); border-radius: 12px;
+    border: 1px solid var(--border); transition: all 0.2s;
   }
   .dest-item:hover { border-color: var(--accent); }
-  .dest-votes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 50px;
-  }
+  .dest-votes { display: flex; flex-direction: column; align-items: center; min-width: 50px; }
   .vote-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 1.2em;
-    padding: 2px 8px;
-    border-radius: 6px;
-    transition: all 0.15s;
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 1.2em; padding: 2px 8px; border-radius: 6px; transition: all 0.15s;
   }
   .vote-btn:hover { color: var(--accent); background: rgba(108,92,231,0.15); }
   .vote-btn.voted { color: var(--accent); }
-  .vote-count {
-    font-weight: 800;
-    font-size: 1.1em;
-    color: var(--accent);
-  }
+  .vote-count { font-weight: 800; font-size: 1.1em; color: var(--accent); }
   .dest-info { flex: 1; }
   .dest-name { font-weight: 600; font-size: 1em; }
   .dest-tag {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 0.7em;
-    font-weight: 600;
-    margin-left: 8px;
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.7em; font-weight: 600; margin-left: 8px;
   }
   .dest-tag.intl { background: rgba(108,92,231,0.2); color: var(--accent); }
   .dest-tag.domestic { background: rgba(0,206,201,0.2); color: var(--accent2); }
   .dest-added-by { font-size: 0.78em; color: var(--muted); margin-top: 2px; }
   .dest-delete {
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 1em;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.15s;
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 1em; padding: 4px 8px; border-radius: 6px; transition: all 0.15s;
   }
   .dest-delete:hover { color: var(--red); background: rgba(225,112,85,0.15); }
-
-  .add-dest {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    flex-wrap: wrap;
-  }
+  .add-dest { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
   .add-dest input, .add-dest select {
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: var(--bg);
-    color: var(--text);
-    font-size: 0.9em;
-    font-family: inherit;
+    padding: 10px 14px; border-radius: 10px; border: 2px solid var(--border);
+    background: var(--bg); color: var(--text); font-size: 0.9em; font-family: inherit;
   }
   .add-dest input { flex: 1; min-width: 150px; }
   .add-dest input:focus, .add-dest select:focus { outline: none; border-color: var(--accent); }
   .add-dest select { cursor: pointer; }
   .add-btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    background: var(--accent);
-    color: #fff;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s;
+    padding: 10px 20px; border-radius: 10px; border: none; background: var(--accent);
+    color: #fff; font-weight: 700; cursor: pointer; font-size: 0.9em; transition: all 0.2s;
   }
   .add-btn:hover { background: #5b4bd5; }
 
   /* Trip length */
-  .length-options {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 8px;
-  }
+  .length-options { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
   .length-btn {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 500;
-    transition: all 0.2s;
+    padding: 10px 20px; border-radius: 10px; border: 2px solid var(--border);
+    background: transparent; color: var(--text); cursor: pointer;
+    font-size: 0.9em; font-weight: 500; transition: all 0.2s;
   }
   .length-btn:hover { border-color: var(--accent); }
-  .length-btn.selected {
-    background: rgba(108,92,231,0.2);
-    border-color: var(--accent);
-    color: var(--accent);
-    font-weight: 700;
-  }
+  .length-btn.selected { background: rgba(108,92,231,0.2); border-color: var(--accent); color: var(--accent); font-weight: 700; }
   .length-summary {
-    margin-top: 16px;
-    padding: 12px 16px;
-    background: var(--bg);
-    border-radius: 10px;
-    font-size: 0.88em;
-    line-height: 1.6;
+    margin-top: 16px; padding: 12px 16px; background: var(--bg);
+    border-radius: 10px; font-size: 0.88em; line-height: 1.6;
   }
+
+  /* ===== SUGGESTION CARDS ===== */
+  .sugg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 600px) { .sugg-grid { grid-template-columns: 1fr; } }
+  .sugg-card {
+    background: var(--bg); border-radius: 14px; border: 1px solid var(--border);
+    overflow: hidden; transition: all 0.2s;
+  }
+  .sugg-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .sugg-header {
+    padding: 16px 18px 12px; position: relative;
+  }
+  .sugg-header h3 { font-size: 1.05em; margin-bottom: 2px; }
+  .sugg-header .sugg-sub { font-size: 0.8em; color: var(--muted); }
+  .sugg-body { padding: 0 18px 16px; }
+  .sugg-stats {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+  }
+  .sugg-stat {
+    font-size: 0.78em; padding: 4px 10px; border-radius: 8px;
+    background: rgba(108,92,231,0.1); color: var(--accent);
+  }
+  .sugg-stat.price { background: rgba(0,184,148,0.1); color: var(--green); font-weight: 700; }
+  .sugg-stat.flight { background: rgba(0,206,201,0.1); color: var(--accent2); }
+  .sugg-stat.season { background: rgba(253,203,110,0.1); color: var(--orange); }
+  .sugg-itin { font-size: 0.82em; color: var(--muted); line-height: 1.6; }
+  .sugg-itin strong { color: var(--text); font-weight: 600; }
+  .sugg-divider {
+    text-align: center; padding: 16px 0 8px; font-size: 0.85em;
+    color: var(--muted); font-weight: 600; letter-spacing: 1px;
+  }
+  .sugg-add-btn {
+    display: block; width: 100%; margin-top: 10px; padding: 8px;
+    border-radius: 8px; border: 1px dashed var(--border); background: transparent;
+    color: var(--accent); font-size: 0.82em; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; font-family: inherit;
+  }
+  .sugg-add-btn:hover { border-color: var(--accent); background: rgba(108,92,231,0.1); }
 
   /* Bottom bar */
   .bottom-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px;
+    position: fixed; bottom: 0; left: 0; right: 0; padding: 16px;
     background: linear-gradient(transparent, var(--bg) 20%);
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    z-index: 100;
+    display: flex; justify-content: center; gap: 10px; z-index: 100;
   }
   .share-btn {
-    padding: 14px 28px;
-    border-radius: 14px;
-    border: none;
-    font-weight: 700;
-    font-size: 0.95em;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
+    padding: 14px 28px; border-radius: 14px; border: none; font-weight: 700;
+    font-size: 0.95em; cursor: pointer; transition: all 0.2s; font-family: inherit;
   }
-  .share-btn.primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #fff;
-  }
+  .share-btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
   .share-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(108,92,231,0.3); }
-  .share-btn.secondary {
-    background: var(--card);
-    color: var(--text);
-    border: 2px solid var(--border);
-  }
+  .share-btn.secondary { background: var(--card); color: var(--text); border: 2px solid var(--border); }
   .share-btn.secondary:hover { border-color: var(--accent); }
 
   /* Toast */
   .toast {
-    position: fixed;
-    top: 20px;
-    left: 50%;
+    position: fixed; top: 20px; left: 50%;
     transform: translateX(-50%) translateY(-100px);
-    padding: 14px 28px;
-    background: var(--green);
-    color: #fff;
-    font-weight: 700;
-    border-radius: 12px;
-    z-index: 200;
-    transition: transform 0.3s ease;
-    font-size: 0.95em;
+    padding: 14px 28px; background: var(--green); color: #fff;
+    font-weight: 700; border-radius: 12px; z-index: 200;
+    transition: transform 0.3s ease; font-size: 0.95em;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
   /* Legend */
-  .legend {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-    font-size: 0.82em;
-    color: var(--muted);
-  }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; font-size: 0.82em; color: var(--muted); }
   .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 4px;
-    border: 2px solid;
-  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 4px; border: 2px solid; }
   .legend-dot.avail { border-color: var(--green); background: rgba(0,184,148,0.2); }
   .legend-dot.unavail { border-color: var(--red); background: rgba(225,112,85,0.15); }
   .legend-dot.unset { border-color: var(--border); opacity: 0.5; }
 
   /* Status badges */
   .status-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 8px;
-    font-size: 0.7em;
-    font-weight: 600;
-    margin-left: 6px;
+    display: inline-block; padding: 2px 8px; border-radius: 8px;
+    font-size: 0.7em; font-weight: 600; margin-left: 6px;
   }
   .status-badge.filled { background: rgba(0,184,148,0.2); color: var(--green); }
   .status-badge.pending { background: rgba(253,203,110,0.2); color: var(--orange); }
 
   .instructions {
-    background: rgba(108,92,231,0.1);
-    border: 1px solid rgba(108,92,231,0.3);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    font-size: 0.88em;
-    line-height: 1.6;
+    background: rgba(108,92,231,0.1); border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 20px;
+    font-size: 0.88em; line-height: 1.6;
   }
   .instructions strong { color: var(--accent); }
   .instructions ol { padding-left: 20px; }
@@ -396,7 +276,6 @@
 <div class="container">
   <header>
     <h1>Boys Trip Round 2</h1>
-    <p>Plan it. Lock it. Book it.</p>
   </header>
 
   <div class="instructions">
@@ -412,13 +291,13 @@
 
   <!-- Select Who You Are -->
   <div class="section">
-    <h2><span>👤</span> Who are you?</h2>
+    <h2><span class="icon">&#128100;</span> Who are you?</h2>
     <div class="who-tabs" id="whoTabs"></div>
   </div>
 
   <!-- Availability -->
   <div class="section">
-    <h2><span>📅</span> Your Availability (2027)
+    <h2><span class="icon">&#128197;</span> Your Availability (2027)
       <span class="status-badge pending" id="availStatus">not set</span>
     </h2>
     <div class="legend">
@@ -432,14 +311,15 @@
 
   <!-- Overlap -->
   <div class="section">
-    <h2><span>🎯</span> Best Overlapping Months</h2>
+    <h2><span class="icon">&#127919;</span> Best Overlapping Months</h2>
     <p style="font-size:0.85em;color:var(--muted);margin-bottom:14px;">Higher number = more people available</p>
     <div class="overlap-grid" id="overlapGrid"></div>
+    <div id="recommendation"></div>
   </div>
 
   <!-- Destinations -->
   <div class="section">
-    <h2><span>🌎</span> Destination Ideas</h2>
+    <h2><span class="icon">&#127758;</span> Destination Ideas</h2>
     <div class="dest-list" id="destList"></div>
     <div class="add-dest">
       <input type="text" id="destInput" placeholder="Add a destination...">
@@ -453,16 +333,28 @@
 
   <!-- Trip Length -->
   <div class="section">
-    <h2><span>⏱️</span> Preferred Trip Length</h2>
+    <h2><span class="icon">&#9201;</span> Preferred Trip Length</h2>
     <div class="length-options" id="lengthOptions"></div>
     <div class="length-summary" id="lengthSummary"></div>
+  </div>
+
+  <!-- Destination Suggestions -->
+  <div class="section">
+    <h2><span class="icon">&#9992;&#65039;</span> Destination Suggestions & Pricing</h2>
+    <p style="font-size:0.85em;color:var(--muted);margin-bottom:16px;">Estimated per person for 5 days. Flights from Chicago. Tap "Add to vote" to put it up for the group.</p>
+
+    <div class="sugg-divider">INTERNATIONAL</div>
+    <div class="sugg-grid" id="suggIntl"></div>
+
+    <div class="sugg-divider" style="margin-top:20px;">DOMESTIC</div>
+    <div class="sugg-grid" id="suggDom"></div>
   </div>
 </div>
 
 <!-- Bottom Bar -->
 <div class="bottom-bar">
-  <button class="share-btn primary" onclick="copyShareLink()">📋 Copy Share Link</button>
-  <button class="share-btn secondary" onclick="exportText()">📝 Copy as Text</button>
+  <button class="share-btn primary" onclick="copyShareLink()">&#128203; Copy Share Link</button>
+  <button class="share-btn secondary" onclick="exportText()">&#128221; Copy as Text</button>
 </div>
 
 <!-- Toast -->
@@ -473,16 +365,119 @@ const PEOPLE = ['Ian', 'Ayush', 'Mina', 'Omar', 'Jacob', 'Jordan'];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const LENGTHS = ['3 days', '4 days', '5 days', '6 days', '7 days', '7+ days'];
 
+// ===== DESTINATION SUGGESTIONS DATA =====
+const SUGGESTIONS = {
+  intl: [
+    {
+      name: 'Colombia (Cartagena + Medellin)',
+      sub: 'Best of both worlds',
+      price: '$1,200 - $1,800',
+      flight: '~5h direct',
+      season: 'Great year-round',
+      itin: '<strong>Day 1-2:</strong> Cartagena — Old City, beach clubs, Isla Baru boat day<br><strong>Day 3:</strong> Fly to Medellin (cheap ~$40 flight)<br><strong>Day 4-5:</strong> Medellin — Comuna 13, nightlife in Poblado, Guatape day trip'
+    },
+    {
+      name: 'Mexico City',
+      sub: 'Culture, food, nightlife',
+      price: '$1,000 - $1,500',
+      flight: '~4h direct',
+      season: 'Best Feb-May',
+      itin: '<strong>Day 1:</strong> Roma/Condesa neighborhood, mezcal bars<br><strong>Day 2:</strong> Teotihuacan pyramids day trip<br><strong>Day 3:</strong> Lucha libre, street food tour, rooftop bars<br><strong>Day 4-5:</strong> Xochimilco boats, museums, nightlife in Polanco'
+    },
+    {
+      name: 'Cancun / Tulum',
+      sub: 'Beach + party',
+      price: '$1,400 - $2,000',
+      flight: '~3.5h direct',
+      season: 'Best Nov-Apr',
+      itin: '<strong>Day 1-2:</strong> Cancun hotel zone — beach clubs, nightlife on the strip<br><strong>Day 3:</strong> Drive to Tulum, cenote hopping<br><strong>Day 4-5:</strong> Tulum ruins, beach clubs (Papaya Playa), nightlife'
+    },
+    {
+      name: 'Costa Rica',
+      sub: 'Adventure + beach',
+      price: '$1,500 - $2,200',
+      flight: '~4.5h direct',
+      season: 'Best Dec-Apr',
+      itin: '<strong>Day 1-2:</strong> San Jose area — La Fortuna, Arenal volcano, hot springs<br><strong>Day 3:</strong> Zip-lining, white water rafting<br><strong>Day 4-5:</strong> Beach time in Guanacaste or Manuel Antonio, sunset surf'
+    },
+    {
+      name: 'Portugal (Lisbon + Porto)',
+      sub: 'Europe on a budget',
+      price: '$1,800 - $2,500',
+      flight: '~9h (1 stop)',
+      season: 'Best Mar-Jun',
+      itin: '<strong>Day 1-2:</strong> Lisbon — Alfama district, rooftop bars, Belem<br><strong>Day 3:</strong> Day trip to Sintra (palaces, castles)<br><strong>Day 4-5:</strong> Train to Porto — port wine cellars, Ribeira, Lello bookstore, nightlife'
+    },
+    {
+      name: 'Dominican Republic',
+      sub: 'All-inclusive vibes',
+      price: '$1,100 - $1,700',
+      flight: '~4h direct',
+      season: 'Best Dec-Apr',
+      itin: '<strong>Day 1-3:</strong> Punta Cana resort — pool parties, catamaran, golf<br><strong>Day 4:</strong> Buggy tours, Scape Park zipline/cenotes<br><strong>Day 5:</strong> Santo Domingo day trip — colonial zone, nightlife'
+    }
+  ],
+  domestic: [
+    {
+      name: 'Miami',
+      sub: 'Beach, clubs, food',
+      price: '$1,200 - $1,800',
+      flight: '~3h direct',
+      season: 'Best Oct-Apr',
+      itin: '<strong>Day 1:</strong> South Beach, Ocean Drive<br><strong>Day 2:</strong> Wynwood Walls, Little Havana, Brickell nightlife<br><strong>Day 3:</strong> Boat day / island hopping<br><strong>Day 4-5:</strong> Pool parties, Key Biscayne, LIV/E11even'
+    },
+    {
+      name: 'Las Vegas',
+      sub: 'Classic boys trip',
+      price: '$1,000 - $2,000',
+      flight: '~4h direct',
+      season: 'Good year-round (avoid Jul-Aug heat)',
+      itin: '<strong>Day 1:</strong> Check in on the Strip, pool party<br><strong>Day 2:</strong> Grand Canyon / Red Rock day trip<br><strong>Day 3:</strong> Clubs (XS, Omnia, Hakkasan), casino run<br><strong>Day 4:</strong> Recovery brunch, Fremont St, TopGolf'
+    },
+    {
+      name: 'Nashville',
+      sub: 'Live music + bars',
+      price: '$800 - $1,200',
+      flight: '~1.5h direct',
+      season: 'Best Mar-May, Sep-Nov',
+      itin: '<strong>Day 1:</strong> Broadway honky-tonks, rooftop bars<br><strong>Day 2:</strong> Hot chicken tour, Printers Alley, live music crawl<br><strong>Day 3:</strong> Topgolf, whiskey distillery tour, The Gulch<br><strong>Day 4:</strong> Brunch at Hattie B\'s, late checkout'
+    },
+    {
+      name: 'Scottsdale, AZ',
+      sub: 'Pool party capital',
+      price: '$1,000 - $1,600',
+      flight: '~3.5h direct',
+      season: 'Best Oct-Apr',
+      itin: '<strong>Day 1:</strong> Old Town Scottsdale bar crawl<br><strong>Day 2:</strong> Pool party at W or Talking Stick, golf<br><strong>Day 3:</strong> Camelback Mountain hike, spa day, steakhouse dinner<br><strong>Day 4:</strong> ATV desert tour, nightlife in Old Town'
+    },
+    {
+      name: 'Austin, TX',
+      sub: 'Weird in the best way',
+      price: '$900 - $1,300',
+      flight: '~2.5h direct',
+      season: 'Best Feb-May, Oct-Nov',
+      itin: '<strong>Day 1:</strong> 6th Street bar crawl, live music<br><strong>Day 2:</strong> BBQ tour (Franklin, la Barbecue), Barton Springs, Rainey St<br><strong>Day 3:</strong> Lake Travis boat rental, sunset Congress Bridge bats<br><strong>Day 4:</strong> South Congress brunch, TopGolf'
+    },
+    {
+      name: 'New Orleans',
+      sub: 'Food + chaos',
+      price: '$900 - $1,400',
+      flight: '~2h direct',
+      season: 'Best Feb-May, Oct-Nov',
+      itin: '<strong>Day 1:</strong> Bourbon Street, Frenchmen Street jazz clubs<br><strong>Day 2:</strong> Beignets at Cafe du Monde, swamp tour, Garden District<br><strong>Day 3:</strong> Food crawl (gumbo, po-boys, crawfish), ghost tour<br><strong>Day 4:</strong> Magazine Street, daiquiri crawl, farewell dinner'
+    }
+  ]
+};
+
 // State
 let state = {
   currentUser: null,
-  availability: {},  // { person: { monthIndex: 'available'|'unavailable'|null } }
-  ptoNotes: {},      // { person: "notes" }
-  destinations: [],  // [{ name, type, addedBy, votes: [person] }]
-  tripLength: {},    // { person: "5 days" }
+  availability: {},
+  ptoNotes: {},
+  destinations: [],
+  tripLength: {},
 };
 
-// Initialize default state
 PEOPLE.forEach(p => {
   state.availability[p] = {};
   state.ptoNotes[p] = '';
@@ -490,58 +485,34 @@ PEOPLE.forEach(p => {
 });
 
 // Pre-fill known availability
-// Ian: Jan-Apr 2027
 [0,1,2,3].forEach(m => state.availability['Ian'][m] = 'available');
 state.ptoNotes['Ian'] = 'Starting at Rush in July, should be able to take PTO Jan-Apr';
 
-// Mina: anytime besides Aug, Sep, Jan
 MONTHS.forEach((_, i) => {
-  if ([0, 7, 8].includes(i)) {
-    state.availability['Mina'][i] = 'unavailable';
-  } else {
-    state.availability['Mina'][i] = 'available';
-  }
+  if ([0, 7, 8].includes(i)) state.availability['Mina'][i] = 'unavailable';
+  else state.availability['Mina'][i] = 'available';
 });
 state.ptoNotes['Mina'] = 'Anytime besides Aug, Sep, or Jan. No PTO scheduled yet.';
 
-// Default destinations
 state.destinations = [
-  { name: 'Colombia (Cartagena / Medellín)', type: 'intl', addedBy: 'Group', votes: [] }
+  { name: 'Colombia (Cartagena / Medellin)', type: 'intl', addedBy: 'Group', votes: [] }
 ];
 
-// Load from URL hash if present
+// Load from URL hash
 function loadFromHash() {
   try {
     const hash = window.location.hash.slice(1);
     if (!hash) return;
     const json = decodeURIComponent(atob(hash));
     const loaded = JSON.parse(json);
-    // Merge loaded state
-    if (loaded.availability) {
-      Object.keys(loaded.availability).forEach(p => {
-        if (PEOPLE.includes(p)) state.availability[p] = loaded.availability[p];
-      });
-    }
-    if (loaded.ptoNotes) {
-      Object.keys(loaded.ptoNotes).forEach(p => {
-        if (PEOPLE.includes(p)) state.ptoNotes[p] = loaded.ptoNotes[p];
-      });
-    }
-    if (loaded.destinations && loaded.destinations.length > 0) {
-      state.destinations = loaded.destinations;
-    }
-    if (loaded.tripLength) {
-      Object.keys(loaded.tripLength).forEach(p => {
-        if (PEOPLE.includes(p)) state.tripLength[p] = loaded.tripLength[p];
-      });
-    }
-  } catch(e) {
-    console.log('Could not load state from URL');
-  }
+    if (loaded.availability) Object.keys(loaded.availability).forEach(p => { if (PEOPLE.includes(p)) state.availability[p] = loaded.availability[p]; });
+    if (loaded.ptoNotes) Object.keys(loaded.ptoNotes).forEach(p => { if (PEOPLE.includes(p)) state.ptoNotes[p] = loaded.ptoNotes[p]; });
+    if (loaded.destinations && loaded.destinations.length > 0) state.destinations = loaded.destinations;
+    if (loaded.tripLength) Object.keys(loaded.tripLength).forEach(p => { if (PEOPLE.includes(p)) state.tripLength[p] = loaded.tripLength[p]; });
+  } catch(e) { console.log('Could not load from URL'); }
 }
 loadFromHash();
 
-// Also save/load from localStorage as backup
 function saveLocal() {
   try { localStorage.setItem('boystrip2', JSON.stringify(state)); } catch(e) {}
 }
@@ -581,28 +552,20 @@ function renderMonthGrid() {
   const el = document.getElementById('monthGrid');
   const user = state.currentUser;
   const statusEl = document.getElementById('availStatus');
-
   if (!user) {
     el.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);text-align:center;padding:20px;">Select your name above first</p>';
-    statusEl.textContent = 'select name';
-    statusEl.className = 'status-badge pending';
+    statusEl.textContent = 'select name'; statusEl.className = 'status-badge pending';
     return;
   }
-
   const avail = state.availability[user] || {};
   const hasAny = Object.values(avail).some(v => v);
   statusEl.textContent = hasAny ? 'updated' : 'not set';
   statusEl.className = hasAny ? 'status-badge filled' : 'status-badge pending';
-
   el.innerHTML = MONTHS.map((m, i) => {
     const val = avail[i];
-    let cls = '';
-    if (val === 'available') cls = 'available';
-    else if (val === 'unavailable') cls = 'unavailable';
-    else cls = 'no-response';
+    let cls = val === 'available' ? 'available' : val === 'unavailable' ? 'unavailable' : 'no-response';
     return `<button class="month-btn ${cls}" onclick="toggleMonth(${i})">${m} 2027</button>`;
   }).join('');
-
   document.getElementById('ptoNotes').value = state.ptoNotes[user] || '';
 }
 
@@ -616,71 +579,152 @@ function toggleMonth(i) {
   saveLocal();
   renderMonthGrid();
   renderOverlap();
+  renderRecommendation();
 }
 
-// PTO notes
 document.getElementById('ptoNotes').addEventListener('input', function() {
-  if (state.currentUser) {
-    state.ptoNotes[state.currentUser] = this.value;
-    saveLocal();
-  }
+  if (state.currentUser) { state.ptoNotes[state.currentUser] = this.value; saveLocal(); }
 });
 
 // Render overlap
 function renderOverlap() {
   const el = document.getElementById('overlapGrid');
   let maxCount = 0;
-
   const monthData = MONTHS.map((m, i) => {
     const available = PEOPLE.filter(p => state.availability[p][i] === 'available');
     if (available.length > maxCount) maxCount = available.length;
     return { month: m, count: available.length, names: available };
   });
-
   el.innerHTML = monthData.map(d => {
     let cls = '';
     if (d.count === maxCount && maxCount >= 2) cls = 'best';
     else if (d.count >= maxCount - 1 && d.count >= 2) cls = 'good';
     else if (d.count <= 1) cls = 'bad';
-    return `
-      <div class="overlap-cell ${cls}">
-        <div class="month-name">${d.month}</div>
-        <div class="count">${d.count}/${PEOPLE.length}</div>
-        <div class="names">${d.names.length ? d.names.join(', ') : 'none'}</div>
-      </div>`;
+    return `<div class="overlap-cell ${cls}">
+      <div class="month-name">${d.month}</div>
+      <div class="count">${d.count}/${PEOPLE.length}</div>
+      <div class="names">${d.names.length ? d.names.join(', ') : 'none'}</div>
+    </div>`;
   }).join('');
+}
+
+// ===== SMART RECOMMENDATION ENGINE =====
+function renderRecommendation() {
+  const el = document.getElementById('recommendation');
+  const respondedPeople = PEOPLE.filter(p => Object.values(state.availability[p]).some(v => v));
+  const notResponded = PEOPLE.filter(p => !Object.values(state.availability[p]).some(v => v));
+
+  // Calculate overlap for each month
+  const monthScores = MONTHS.map((m, i) => {
+    const available = PEOPLE.filter(p => state.availability[p][i] === 'available');
+    const unavailable = PEOPLE.filter(p => state.availability[p][i] === 'unavailable');
+    const unknown = PEOPLE.filter(p => !state.availability[p][i]);
+    return { month: m, index: i, available, unavailable, unknown, score: available.length };
+  }).sort((a, b) => b.score - a.score);
+
+  // Find best windows (consecutive months with high overlap)
+  const windows = [];
+  const sorted = [...monthScores].sort((a, b) => a.index - b.index);
+  let i = 0;
+  while (i < 12) {
+    if (sorted[i].score >= 2) {
+      let start = i;
+      while (i < 12 && sorted[i].score >= 2) i++;
+      const windowMonths = sorted.slice(start, i);
+      const minAvail = Math.min(...windowMonths.map(w => w.score));
+      const maxAvail = Math.max(...windowMonths.map(w => w.score));
+      const allAvailable = [...new Set(windowMonths.flatMap(w => w.available))];
+      windows.push({
+        months: windowMonths.map(w => w.month),
+        range: windowMonths.length === 1 ? windowMonths[0].month : `${windowMonths[0].month} - ${windowMonths[windowMonths.length-1].month}`,
+        minAvail, maxAvail, allAvailable,
+        bestMonth: windowMonths.reduce((a, b) => a.score > b.score ? a : b)
+      });
+    } else {
+      i++;
+    }
+  }
+  windows.sort((a, b) => b.maxAvail - a.maxAvail || b.months.length - a.months.length);
+
+  if (respondedPeople.length === 0) {
+    el.innerHTML = `<div class="rec-box">
+      <h3>&#128161; Waiting for responses...</h3>
+      <p style="color:var(--muted);font-size:0.9em;">No one has filled in their availability yet. Select your name and start tapping months!</p>
+    </div>`;
+    return;
+  }
+
+  let html = `<div class="rec-box"><h3>&#128640; Trip Window Recommendation</h3>`;
+  html += `<p style="color:var(--muted);font-size:0.85em;margin-bottom:14px;">Based on ${respondedPeople.length}/${PEOPLE.length} responses (${respondedPeople.join(', ')})</p>`;
+
+  if (windows.length === 0) {
+    html += `<p style="color:var(--red);font-size:0.9em;">No overlapping months found yet. Need more people to fill in availability.</p>`;
+  } else {
+    windows.slice(0, 3).forEach((w, idx) => {
+      const label = idx === 0 ? 'TOP PICK' : idx === 1 ? 'BACKUP' : 'OPTION 3';
+      const peakNote = w.bestMonth ? ` (peak: <strong>${w.bestMonth.month}</strong> with ${w.bestMonth.score} people)` : '';
+      html += `<div class="rec-window">
+        <div style="font-size:0.7em;font-weight:700;color:${idx === 0 ? 'var(--green)' : 'var(--muted)'};margin-bottom:4px;letter-spacing:1px;">${label}</div>
+        <div class="rec-months">${w.range} 2027</div>
+        <div class="rec-detail">
+          ${w.minAvail === w.maxAvail ? `<strong>${w.maxAvail}/${PEOPLE.length}</strong> available` : `<strong>${w.minAvail}-${w.maxAvail}</strong> of ${PEOPLE.length} available`}${peakNote}<br>
+          Who's in: ${w.allAvailable.join(', ')}
+        </div>
+      </div>`;
+    });
+  }
+
+  if (notResponded.length > 0) {
+    html += `<div class="rec-nudge">
+      <strong>&#128276; Still waiting on:</strong> ${notResponded.join(', ')}<br>
+      Send them this link so they can add their availability!
+    </div>`;
+  }
+
+  if (respondedPeople.length === PEOPLE.length && windows.length > 0) {
+    const best = windows[0];
+    html += `<div style="margin-top:14px;padding:12px 16px;background:rgba(0,184,148,0.15);border-radius:10px;font-size:0.9em;">
+      <strong style="color:var(--green);">&#9989; Everyone's in!</strong> Best window is <strong>${best.range} 2027</strong> with up to ${best.maxAvail} people available. Time to lock in dates and book!
+    </div>`;
+  }
+
+  html += '</div>';
+  el.innerHTML = html;
 }
 
 // Destinations
 function renderDestinations() {
   const el = document.getElementById('destList');
   const sorted = [...state.destinations].sort((a, b) => b.votes.length - a.votes.length);
-  el.innerHTML = sorted.map((d, origIdx) => {
+  el.innerHTML = sorted.map(d => {
     const realIdx = state.destinations.indexOf(d);
     const userVoted = state.currentUser && d.votes.includes(state.currentUser);
-    return `
-      <div class="dest-item">
-        <div class="dest-votes">
-          <button class="vote-btn ${userVoted ? 'voted' : ''}" onclick="voteDest(${realIdx})">▲</button>
-          <span class="vote-count">${d.votes.length}</span>
-        </div>
-        <div class="dest-info">
-          <div class="dest-name">${d.name}<span class="dest-tag ${d.type}">${d.type === 'intl' ? 'International' : 'Domestic'}</span></div>
-          <div class="dest-added-by">added by ${d.addedBy}${d.votes.length ? ' · votes: ' + d.votes.join(', ') : ''}</div>
-        </div>
-        <button class="dest-delete" onclick="deleteDest(${realIdx})" title="Remove">✕</button>
-      </div>`;
+    return `<div class="dest-item">
+      <div class="dest-votes">
+        <button class="vote-btn ${userVoted ? 'voted' : ''}" onclick="voteDest(${realIdx})">&#9650;</button>
+        <span class="vote-count">${d.votes.length}</span>
+      </div>
+      <div class="dest-info">
+        <div class="dest-name">${escHtml(d.name)}<span class="dest-tag ${d.type}">${d.type === 'intl' ? 'International' : 'Domestic'}</span></div>
+        <div class="dest-added-by">added by ${escHtml(d.addedBy)}${d.votes.length ? ' &middot; votes: ' + d.votes.map(escHtml).join(', ') : ''}</div>
+      </div>
+      <button class="dest-delete" onclick="deleteDest(${realIdx})" title="Remove">&#10005;</button>
+    </div>`;
   }).join('');
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
 }
 
 function voteDest(idx) {
   if (!state.currentUser) { showToast('Select your name first!'); return; }
   const d = state.destinations[idx];
   const vi = d.votes.indexOf(state.currentUser);
-  if (vi >= 0) d.votes.splice(vi, 1);
-  else d.votes.push(state.currentUser);
-  saveLocal();
-  renderDestinations();
+  if (vi >= 0) d.votes.splice(vi, 1); else d.votes.push(state.currentUser);
+  saveLocal(); renderDestinations();
 }
 
 function addDestination() {
@@ -688,26 +732,22 @@ function addDestination() {
   const type = document.getElementById('destType').value;
   const name = input.value.trim();
   if (!name) return;
-  state.destinations.push({
-    name,
-    type,
-    addedBy: state.currentUser || 'Anonymous',
-    votes: state.currentUser ? [state.currentUser] : []
-  });
+  state.destinations.push({ name, type, addedBy: state.currentUser || 'Anonymous', votes: state.currentUser ? [state.currentUser] : [] });
   input.value = '';
-  saveLocal();
-  renderDestinations();
+  saveLocal(); renderDestinations();
 }
 
-document.getElementById('destInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') addDestination();
-});
-
-function deleteDest(idx) {
-  state.destinations.splice(idx, 1);
-  saveLocal();
-  renderDestinations();
+function addSuggestionToDest(name, type) {
+  const exists = state.destinations.some(d => d.name.toLowerCase().includes(name.toLowerCase().split('(')[0].trim()) || name.toLowerCase().includes(d.name.toLowerCase().split('(')[0].trim()));
+  if (exists) { showToast('Already in the list!'); return; }
+  state.destinations.push({ name, type, addedBy: state.currentUser || 'Suggestion', votes: state.currentUser ? [state.currentUser] : [] });
+  saveLocal(); renderDestinations();
+  showToast(`Added ${name}!`);
 }
+
+document.getElementById('destInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') addDestination(); });
+
+function deleteDest(idx) { state.destinations.splice(idx, 1); saveLocal(); renderDestinations(); }
 
 // Trip length
 function renderTripLength() {
@@ -723,113 +763,90 @@ function renderTripLength() {
 function pickLength(len) {
   if (!state.currentUser) { showToast('Select your name first!'); return; }
   state.tripLength[state.currentUser] = state.tripLength[state.currentUser] === len ? null : len;
-  saveLocal();
-  renderTripLength();
+  saveLocal(); renderTripLength();
 }
 
 function renderLengthSummary() {
   const el = document.getElementById('lengthSummary');
   const entries = PEOPLE.filter(p => state.tripLength[p]).map(p => `<strong>${p}</strong>: ${state.tripLength[p]}`);
-  if (entries.length === 0) {
-    el.innerHTML = '<span style="color:var(--muted)">No one has voted yet. Select your name and pick a length!</span>';
-  } else {
-    el.innerHTML = entries.join(' &nbsp;·&nbsp; ');
-  }
+  el.innerHTML = entries.length === 0
+    ? '<span style="color:var(--muted)">No one has voted yet. Select your name and pick a length!</span>'
+    : entries.join(' &nbsp;&middot;&nbsp; ');
+}
+
+// ===== RENDER SUGGESTION CARDS =====
+function renderSuggestions() {
+  ['intl', 'domestic'].forEach(type => {
+    const el = document.getElementById(type === 'intl' ? 'suggIntl' : 'suggDom');
+    el.innerHTML = SUGGESTIONS[type].map(s => `
+      <div class="sugg-card">
+        <div class="sugg-header">
+          <h3>${s.name}</h3>
+          <div class="sugg-sub">${s.sub}</div>
+        </div>
+        <div class="sugg-body">
+          <div class="sugg-stats">
+            <span class="sugg-stat price">${s.price}</span>
+            <span class="sugg-stat flight">${s.flight}</span>
+            <span class="sugg-stat season">${s.season}</span>
+          </div>
+          <div class="sugg-itin">${s.itin}</div>
+          <button class="sugg-add-btn" onclick="addSuggestionToDest('${s.name.replace(/'/g, "\\'")}', '${type}')">+ Add to vote</button>
+        </div>
+      </div>
+    `).join('');
+  });
 }
 
 // Share
 function getShareData() {
-  return {
-    availability: state.availability,
-    ptoNotes: state.ptoNotes,
-    destinations: state.destinations,
-    tripLength: state.tripLength
-  };
+  return { availability: state.availability, ptoNotes: state.ptoNotes, destinations: state.destinations, tripLength: state.tripLength };
 }
 
 function copyShareLink() {
   const data = getShareData();
   const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
   const url = window.location.origin + window.location.pathname + '#' + encoded;
-  navigator.clipboard.writeText(url).then(() => {
-    showToast('Share link copied! Paste it in the group chat.');
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = url;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('Share link copied!');
+  navigator.clipboard.writeText(url).then(() => showToast('Share link copied! Paste it in the group chat.')).catch(() => {
+    const ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Share link copied!');
   });
 }
 
 function exportText() {
   let text = "=== BOYS TRIP ROUND 2 ===\n\n";
-  text += "📅 AVAILABILITY (2027)\n";
-  text += "─".repeat(30) + "\n";
+  text += "AVAILABILITY (2027)\n" + "-".repeat(30) + "\n";
   PEOPLE.forEach(p => {
     const avail = state.availability[p];
     const availMonths = MONTHS.filter((_, i) => avail[i] === 'available');
     const unavailMonths = MONTHS.filter((_, i) => avail[i] === 'unavailable');
     text += `\n${p}:\n`;
-    text += availMonths.length ? `  ✅ Available: ${availMonths.join(', ')}\n` : `  ⏳ Hasn't responded yet\n`;
-    if (unavailMonths.length) text += `  ❌ Unavailable: ${unavailMonths.join(', ')}\n`;
-    if (state.ptoNotes[p]) text += `  📝 ${state.ptoNotes[p]}\n`;
+    text += availMonths.length ? `  Available: ${availMonths.join(', ')}\n` : `  Hasn't responded yet\n`;
+    if (unavailMonths.length) text += `  Unavailable: ${unavailMonths.join(', ')}\n`;
+    if (state.ptoNotes[p]) text += `  Note: ${state.ptoNotes[p]}\n`;
   });
-
-  text += "\n\n🎯 BEST MONTHS\n";
-  text += "─".repeat(30) + "\n";
-  const monthCounts = MONTHS.map((m, i) => ({
-    month: m,
-    count: PEOPLE.filter(p => state.availability[p][i] === 'available').length,
-    names: PEOPLE.filter(p => state.availability[p][i] === 'available')
-  })).sort((a, b) => b.count - a.count);
-  monthCounts.forEach(d => {
-    text += `${d.month}: ${d.count}/${PEOPLE.length} (${d.names.join(', ') || 'none'})\n`;
-  });
-
-  text += "\n\n🌎 DESTINATIONS\n";
-  text += "─".repeat(30) + "\n";
-  const sorted = [...state.destinations].sort((a, b) => b.votes.length - a.votes.length);
-  sorted.forEach(d => {
-    text += `${d.votes.length} votes · ${d.name} [${d.type === 'intl' ? 'International' : 'Domestic'}]${d.votes.length ? ' (' + d.votes.join(', ') + ')' : ''}\n`;
-  });
-
-  text += "\n\n⏱️ TRIP LENGTH VOTES\n";
-  text += "─".repeat(30) + "\n";
-  PEOPLE.forEach(p => {
-    text += `${p}: ${state.tripLength[p] || 'not voted'}\n`;
-  });
-
-  navigator.clipboard.writeText(text).then(() => {
-    showToast('Text summary copied!');
-  }).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    showToast('Text summary copied!');
+  text += "\n\nBEST MONTHS\n" + "-".repeat(30) + "\n";
+  MONTHS.map((m, i) => ({ month: m, count: PEOPLE.filter(p => state.availability[p][i] === 'available').length, names: PEOPLE.filter(p => state.availability[p][i] === 'available') }))
+    .sort((a, b) => b.count - a.count)
+    .forEach(d => { text += `${d.month}: ${d.count}/${PEOPLE.length} (${d.names.join(', ') || 'none'})\n`; });
+  text += "\n\nDESTINATIONS\n" + "-".repeat(30) + "\n";
+  [...state.destinations].sort((a, b) => b.votes.length - a.votes.length)
+    .forEach(d => { text += `${d.votes.length} votes - ${d.name} [${d.type === 'intl' ? 'International' : 'Domestic'}]${d.votes.length ? ' (' + d.votes.join(', ') + ')' : ''}\n`; });
+  text += "\n\nTRIP LENGTH VOTES\n" + "-".repeat(30) + "\n";
+  PEOPLE.forEach(p => { text += `${p}: ${state.tripLength[p] || 'not voted'}\n`; });
+  navigator.clipboard.writeText(text).then(() => showToast('Text summary copied!')).catch(() => {
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Text summary copied!');
   });
 }
 
 function showToast(msg) {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
+  el.textContent = msg; el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2500);
 }
 
-// Render all
 function renderAll() {
-  renderWhoTabs();
-  renderMonthGrid();
-  renderOverlap();
-  renderDestinations();
-  renderTripLength();
+  renderWhoTabs(); renderMonthGrid(); renderOverlap(); renderRecommendation();
+  renderDestinations(); renderTripLength(); renderSuggestions();
 }
 renderAll();
 </script>
