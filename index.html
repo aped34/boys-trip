@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boys Trip Round 2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #222633;
+    --accent: #6c5ce7;
+    --accent2: #00cec9;
+    --green: #00b894;
+    --red: #e17055;
+    --orange: #fdcb6e;
+    --text: #dfe6e9;
+    --muted: #636e72;
+    --border: #2d3436;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 16px;
+    padding-bottom: 100px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 32px 0 24px;
+  }
+  header h1 {
+    font-size: 2.2em;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+  header p { color: var(--muted); font-size: 0.95em; }
+  .section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .section h2 {
+    font-size: 1.2em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2 span { font-size: 1.3em; }
+
+  /* WHO selector */
+  .who-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .who-tab {
+    padding: 8px 18px;
+    border-radius: 24px;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .who-tab:hover { border-color: var(--accent); }
+  .who-tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* Month grid */
+  .month-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 500px) {
+    .month-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .month-btn {
+    padding: 14px 8px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .month-btn:hover { border-color: var(--green); background: rgba(0,184,148,0.1); }
+  .month-btn.available {
+    background: rgba(0,184,148,0.2);
+    border-color: var(--green);
+    color: var(--green);
+    font-weight: 700;
+  }
+  .month-btn.unavailable {
+    background: rgba(225,112,85,0.15);
+    border-color: var(--red);
+    color: var(--red);
+    font-weight: 700;
+    text-decoration: line-through;
+  }
+  .month-btn.no-response {
+    opacity: 0.5;
+  }
+  .pto-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.9em;
+    margin-top: 8px;
+    resize: none;
+    font-family: inherit;
+  }
+  .pto-input:focus { outline: none; border-color: var(--accent); }
+  .pto-input::placeholder { color: var(--muted); }
+
+  /* Overlap display */
+  .overlap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 500px) {
+    .overlap-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .overlap-cell {
+    padding: 12px 8px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.85em;
+    border: 2px solid var(--border);
+    background: var(--bg);
+  }
+  .overlap-cell .month-name { font-weight: 700; margin-bottom: 4px; }
+  .overlap-cell .count { font-size: 1.4em; font-weight: 800; }
+  .overlap-cell .names { font-size: 0.75em; color: var(--muted); margin-top: 4px; line-height: 1.3; }
+  .overlap-cell.best {
+    border-color: var(--green);
+    background: rgba(0,184,148,0.1);
+  }
+  .overlap-cell.best .count { color: var(--green); }
+  .overlap-cell.good {
+    border-color: var(--orange);
+    background: rgba(253,203,110,0.08);
+  }
+  .overlap-cell.good .count { color: var(--orange); }
+  .overlap-cell.bad .count { color: var(--red); }
+
+  /* Destinations */
+  .dest-list { display: flex; flex-direction: column; gap: 10px; }
+  .dest-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .dest-item:hover { border-color: var(--accent); }
+  .dest-votes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 50px;
+  }
+  .vote-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 2px 8px;
+    border-radius: 6px;
+    transition: all 0.15s;
+  }
+  .vote-btn:hover { color: var(--accent); background: rgba(108,92,231,0.15); }
+  .vote-btn.voted { color: var(--accent); }
+  .vote-count {
+    font-weight: 800;
+    font-size: 1.1em;
+    color: var(--accent);
+  }
+  .dest-info { flex: 1; }
+  .dest-name { font-weight: 600; font-size: 1em; }
+  .dest-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .dest-tag.intl { background: rgba(108,92,231,0.2); color: var(--accent); }
+  .dest-tag.domestic { background: rgba(0,206,201,0.2); color: var(--accent2); }
+  .dest-added-by { font-size: 0.78em; color: var(--muted); margin-top: 2px; }
+  .dest-delete {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1em;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.15s;
+  }
+  .dest-delete:hover { color: var(--red); background: rgba(225,112,85,0.15); }
+
+  .add-dest {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .add-dest input, .add-dest select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.9em;
+    font-family: inherit;
+  }
+  .add-dest input { flex: 1; min-width: 150px; }
+  .add-dest input:focus, .add-dest select:focus { outline: none; border-color: var(--accent); }
+  .add-dest select { cursor: pointer; }
+  .add-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+  }
+  .add-btn:hover { background: #5b4bd5; }
+
+  /* Trip length */
+  .length-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .length-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .length-btn:hover { border-color: var(--accent); }
+  .length-btn.selected {
+    background: rgba(108,92,231,0.2);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .length-summary {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border-radius: 10px;
+    font-size: 0.88em;
+    line-height: 1.6;
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(transparent, var(--bg) 20%);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 100;
+  }
+  .share-btn {
+    padding: 14px 28px;
+    border-radius: 14px;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .share-btn.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+  }
+  .share-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(108,92,231,0.3); }
+  .share-btn.secondary {
+    background: var(--card);
+    color: var(--text);
+    border: 2px solid var(--border);
+  }
+  .share-btn.secondary:hover { border-color: var(--accent); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    padding: 14px 28px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    z-index: 200;
+    transition: transform 0.3s ease;
+    font-size: 0.95em;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    font-size: 0.82em;
+    color: var(--muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    border: 2px solid;
+  }
+  .legend-dot.avail { border-color: var(--green); background: rgba(0,184,148,0.2); }
+  .legend-dot.unavail { border-color: var(--red); background: rgba(225,112,85,0.15); }
+  .legend-dot.unset { border-color: var(--border); opacity: 0.5; }
+
+  /* Status badges */
+  .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.7em;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .status-badge.filled { background: rgba(0,184,148,0.2); color: var(--green); }
+  .status-badge.pending { background: rgba(253,203,110,0.2); color: var(--orange); }
+
+  .instructions {
+    background: rgba(108,92,231,0.1);
+    border: 1px solid rgba(108,92,231,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 0.88em;
+    line-height: 1.6;
+  }
+  .instructions strong { color: var(--accent); }
+  .instructions ol { padding-left: 20px; }
+  .instructions li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Boys Trip Round 2</h1>
+    <p>Plan it. Lock it. Book it.</p>
+  </header>
+
+  <div class="instructions">
+    <strong>How this works:</strong>
+    <ol>
+      <li>Select <strong>your name</strong> below</li>
+      <li>Tap months you're <strong>available</strong> (tap again to mark unavailable)</li>
+      <li>Add destination ideas and <strong>vote</strong></li>
+      <li>Hit <strong>"Copy Share Link"</strong> and paste it in the group chat</li>
+      <li>When the next person opens that link, they see everyone's picks and add theirs</li>
+    </ol>
+  </div>
+
+  <!-- Select Who You Are -->
+  <div class="section">
+    <h2><span>👤</span> Who are you?</h2>
+    <div class="who-tabs" id="whoTabs"></div>
+  </div>
+
+  <!-- Availability -->
+  <div class="section">
+    <h2><span>📅</span> Your Availability (2027)
+      <span class="status-badge pending" id="availStatus">not set</span>
+    </h2>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot avail"></div> Available</div>
+      <div class="legend-item"><div class="legend-dot unavail"></div> Unavailable</div>
+      <div class="legend-item"><div class="legend-dot unset"></div> Not set</div>
+    </div>
+    <div class="month-grid" id="monthGrid"></div>
+    <textarea class="pto-input" id="ptoNotes" rows="2" placeholder="Any notes? (scheduled PTO, constraints, etc.)"></textarea>
+  </div>
+
+  <!-- Overlap -->
+  <div class="section">
+    <h2><span>🎯</span> Best Overlapping Months</h2>
+    <p style="font-size:0.85em;color:var(--muted);margin-bottom:14px;">Higher number = more people available</p>
+    <div class="overlap-grid" id="overlapGrid"></div>
+  </div>
+
+  <!-- Destinations -->
+  <div class="section">
+    <h2><span>🌎</span> Destination Ideas</h2>
+    <div class="dest-list" id="destList"></div>
+    <div class="add-dest">
+      <input type="text" id="destInput" placeholder="Add a destination...">
+      <select id="destType">
+        <option value="intl">International</option>
+        <option value="domestic">Domestic</option>
+      </select>
+      <button class="add-btn" onclick="addDestination()">Add</button>
+    </div>
+  </div>
+
+  <!-- Trip Length -->
+  <div class="section">
+    <h2><span>⏱️</span> Preferred Trip Length</h2>
+    <div class="length-options" id="lengthOptions"></div>
+    <div class="length-summary" id="lengthSummary"></div>
+  </div>
+</div>
+
+<!-- Bottom Bar -->
+<div class="bottom-bar">
+  <button class="share-btn primary" onclick="copyShareLink()">📋 Copy Share Link</button>
+  <button class="share-btn secondary" onclick="exportText()">📝 Copy as Text</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+const PEOPLE = ['Ian', 'Ayush', 'Mina', 'Omar', 'Jacob', 'Jordan'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const LENGTHS = ['3 days', '4 days', '5 days', '6 days', '7 days', '7+ days'];
+
+// State
+let state = {
+  currentUser: null,
+  availability: {},  // { person: { monthIndex: 'available'|'unavailable'|null } }
+  ptoNotes: {},      // { person: "notes" }
+  destinations: [],  // [{ name, type, addedBy, votes: [person] }]
+  tripLength: {},    // { person: "5 days" }
+};
+
+// Initialize default state
+PEOPLE.forEach(p => {
+  state.availability[p] = {};
+  state.ptoNotes[p] = '';
+  state.tripLength[p] = null;
+});
+
+// Pre-fill known availability
+// Ian: Jan-Apr 2027
+[0,1,2,3].forEach(m => state.availability['Ian'][m] = 'available');
+state.ptoNotes['Ian'] = 'Starting at Rush in July, should be able to take PTO Jan-Apr';
+
+// Mina: anytime besides Aug, Sep, Jan
+MONTHS.forEach((_, i) => {
+  if ([0, 7, 8].includes(i)) {
+    state.availability['Mina'][i] = 'unavailable';
+  } else {
+    state.availability['Mina'][i] = 'available';
+  }
+});
+state.ptoNotes['Mina'] = 'Anytime besides Aug, Sep, or Jan. No PTO scheduled yet.';
+
+// Default destinations
+state.destinations = [
+  { name: 'Colombia (Cartagena / Medellín)', type: 'intl', addedBy: 'Group', votes: [] }
+];
+
+// Load from URL hash if present
+function loadFromHash() {
+  try {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const json = decodeURIComponent(atob(hash));
+    const loaded = JSON.parse(json);
+    // Merge loaded state
+    if (loaded.availability) {
+      Object.keys(loaded.availability).forEach(p => {
+        if (PEOPLE.includes(p)) state.availability[p] = loaded.availability[p];
+      });
+    }
+    if (loaded.ptoNotes) {
+      Object.keys(loaded.ptoNotes).forEach(p => {
+        if (PEOPLE.includes(p)) state.ptoNotes[p] = loaded.ptoNotes[p];
+      });
+    }
+    if (loaded.destinations && loaded.destinations.length > 0) {
+      state.destinations = loaded.destinations;
+    }
+    if (loaded.tripLength) {
+      Object.keys(loaded.tripLength).forEach(p => {
+        if (PEOPLE.includes(p)) state.tripLength[p] = loaded.tripLength[p];
+      });
+    }
+  } catch(e) {
+    console.log('Could not load state from URL');
+  }
+}
+loadFromHash();
+
+// Also save/load from localStorage as backup
+function saveLocal() {
+  try { localStorage.setItem('boystrip2', JSON.stringify(state)); } catch(e) {}
+}
+function loadLocal() {
+  try {
+    const saved = localStorage.getItem('boystrip2');
+    if (saved && !window.location.hash.slice(1)) {
+      const loaded = JSON.parse(saved);
+      if (loaded.availability) state.availability = { ...state.availability, ...loaded.availability };
+      if (loaded.ptoNotes) state.ptoNotes = { ...state.ptoNotes, ...loaded.ptoNotes };
+      if (loaded.destinations && loaded.destinations.length > 0) state.destinations = loaded.destinations;
+      if (loaded.tripLength) state.tripLength = { ...state.tripLength, ...loaded.tripLength };
+      if (loaded.currentUser) state.currentUser = loaded.currentUser;
+    }
+  } catch(e) {}
+}
+loadLocal();
+
+// Render who tabs
+function renderWhoTabs() {
+  const el = document.getElementById('whoTabs');
+  el.innerHTML = PEOPLE.map(p => {
+    const hasData = Object.values(state.availability[p] || {}).some(v => v);
+    const badge = hasData ? '<span class="status-badge filled">done</span>' : '<span class="status-badge pending">needs input</span>';
+    return `<button class="who-tab ${state.currentUser === p ? 'active' : ''}" onclick="selectUser('${p}')">${p} ${badge}</button>`;
+  }).join('');
+}
+
+function selectUser(name) {
+  state.currentUser = name;
+  saveLocal();
+  renderAll();
+}
+
+// Render month grid
+function renderMonthGrid() {
+  const el = document.getElementById('monthGrid');
+  const user = state.currentUser;
+  const statusEl = document.getElementById('availStatus');
+
+  if (!user) {
+    el.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);text-align:center;padding:20px;">Select your name above first</p>';
+    statusEl.textContent = 'select name';
+    statusEl.className = 'status-badge pending';
+    return;
+  }
+
+  const avail = state.availability[user] || {};
+  const hasAny = Object.values(avail).some(v => v);
+  statusEl.textContent = hasAny ? 'updated' : 'not set';
+  statusEl.className = hasAny ? 'status-badge filled' : 'status-badge pending';
+
+  el.innerHTML = MONTHS.map((m, i) => {
+    const val = avail[i];
+    let cls = '';
+    if (val === 'available') cls = 'available';
+    else if (val === 'unavailable') cls = 'unavailable';
+    else cls = 'no-response';
+    return `<button class="month-btn ${cls}" onclick="toggleMonth(${i})">${m} 2027</button>`;
+  }).join('');
+
+  document.getElementById('ptoNotes').value = state.ptoNotes[user] || '';
+}
+
+function toggleMonth(i) {
+  if (!state.currentUser) return;
+  const avail = state.availability[state.currentUser];
+  const current = avail[i];
+  if (!current || current === null) avail[i] = 'available';
+  else if (current === 'available') avail[i] = 'unavailable';
+  else avail[i] = null;
+  saveLocal();
+  renderMonthGrid();
+  renderOverlap();
+}
+
+// PTO notes
+document.getElementById('ptoNotes').addEventListener('input', function() {
+  if (state.currentUser) {
+    state.ptoNotes[state.currentUser] = this.value;
+    saveLocal();
+  }
+});
+
+// Render overlap
+function renderOverlap() {
+  const el = document.getElementById('overlapGrid');
+  let maxCount = 0;
+
+  const monthData = MONTHS.map((m, i) => {
+    const available = PEOPLE.filter(p => state.availability[p][i] === 'available');
+    if (available.length > maxCount) maxCount = available.length;
+    return { month: m, count: available.length, names: available };
+  });
+
+  el.innerHTML = monthData.map(d => {
+    let cls = '';
+    if (d.count === maxCount && maxCount >= 2) cls = 'best';
+    else if (d.count >= maxCount - 1 && d.count >= 2) cls = 'good';
+    else if (d.count <= 1) cls = 'bad';
+    return `
+      <div class="overlap-cell ${cls}">
+        <div class="month-name">${d.month}</div>
+        <div class="count">${d.count}/${PEOPLE.length}</div>
+        <div class="names">${d.names.length ? d.names.join(', ') : 'none'}</div>
+      </div>`;
+  }).join('');
+}
+
+// Destinations
+function renderDestinations() {
+  const el = document.getElementById('destList');
+  const sorted = [...state.destinations].sort((a, b) => b.votes.length - a.votes.length);
+  el.innerHTML = sorted.map((d, origIdx) => {
+    const realIdx = state.destinations.indexOf(d);
+    const userVoted = state.currentUser && d.votes.includes(state.currentUser);
+    return `
+      <div class="dest-item">
+        <div class="dest-votes">
+          <button class="vote-btn ${userVoted ? 'voted' : ''}" onclick="voteDest(${realIdx})">▲</button>
+          <span class="vote-count">${d.votes.length}</span>
+        </div>
+        <div class="dest-info">
+          <div class="dest-name">${d.name}<span class="dest-tag ${d.type}">${d.type === 'intl' ? 'International' : 'Domestic'}</span></div>
+          <div class="dest-added-by">added by ${d.addedBy}${d.votes.length ? ' · votes: ' + d.votes.join(', ') : ''}</div>
+        </div>
+        <button class="dest-delete" onclick="deleteDest(${realIdx})" title="Remove">✕</button>
+      </div>`;
+  }).join('');
+}
+
+function voteDest(idx) {
+  if (!state.currentUser) { showToast('Select your name first!'); return; }
+  const d = state.destinations[idx];
+  const vi = d.votes.indexOf(state.currentUser);
+  if (vi >= 0) d.votes.splice(vi, 1);
+  else d.votes.push(state.currentUser);
+  saveLocal();
+  renderDestinations();
+}
+
+function addDestination() {
+  const input = document.getElementById('destInput');
+  const type = document.getElementById('destType').value;
+  const name = input.value.trim();
+  if (!name) return;
+  state.destinations.push({
+    name,
+    type,
+    addedBy: state.currentUser || 'Anonymous',
+    votes: state.currentUser ? [state.currentUser] : []
+  });
+  input.value = '';
+  saveLocal();
+  renderDestinations();
+}
+
+document.getElementById('destInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') addDestination();
+});
+
+function deleteDest(idx) {
+  state.destinations.splice(idx, 1);
+  saveLocal();
+  renderDestinations();
+}
+
+// Trip length
+function renderTripLength() {
+  const el = document.getElementById('lengthOptions');
+  const user = state.currentUser;
+  el.innerHTML = LENGTHS.map(l => {
+    const selected = user && state.tripLength[user] === l;
+    return `<button class="length-btn ${selected ? 'selected' : ''}" onclick="pickLength('${l}')">${l}</button>`;
+  }).join('');
+  renderLengthSummary();
+}
+
+function pickLength(len) {
+  if (!state.currentUser) { showToast('Select your name first!'); return; }
+  state.tripLength[state.currentUser] = state.tripLength[state.currentUser] === len ? null : len;
+  saveLocal();
+  renderTripLength();
+}
+
+function renderLengthSummary() {
+  const el = document.getElementById('lengthSummary');
+  const entries = PEOPLE.filter(p => state.tripLength[p]).map(p => `<strong>${p}</strong>: ${state.tripLength[p]}`);
+  if (entries.length === 0) {
+    el.innerHTML = '<span style="color:var(--muted)">No one has voted yet. Select your name and pick a length!</span>';
+  } else {
+    el.innerHTML = entries.join(' &nbsp;·&nbsp; ');
+  }
+}
+
+// Share
+function getShareData() {
+  return {
+    availability: state.availability,
+    ptoNotes: state.ptoNotes,
+    destinations: state.destinations,
+    tripLength: state.tripLength
+  };
+}
+
+function copyShareLink() {
+  const data = getShareData();
+  const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
+  const url = window.location.origin + window.location.pathname + '#' + encoded;
+  navigator.clipboard.writeText(url).then(() => {
+    showToast('Share link copied! Paste it in the group chat.');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Share link copied!');
+  });
+}
+
+function exportText() {
+  let text = "=== BOYS TRIP ROUND 2 ===\n\n";
+  text += "📅 AVAILABILITY (2027)\n";
+  text += "─".repeat(30) + "\n";
+  PEOPLE.forEach(p => {
+    const avail = state.availability[p];
+    const availMonths = MONTHS.filter((_, i) => avail[i] === 'available');
+    const unavailMonths = MONTHS.filter((_, i) => avail[i] === 'unavailable');
+    text += `\n${p}:\n`;
+    text += availMonths.length ? `  ✅ Available: ${availMonths.join(', ')}\n` : `  ⏳ Hasn't responded yet\n`;
+    if (unavailMonths.length) text += `  ❌ Unavailable: ${unavailMonths.join(', ')}\n`;
+    if (state.ptoNotes[p]) text += `  📝 ${state.ptoNotes[p]}\n`;
+  });
+
+  text += "\n\n🎯 BEST MONTHS\n";
+  text += "─".repeat(30) + "\n";
+  const monthCounts = MONTHS.map((m, i) => ({
+    month: m,
+    count: PEOPLE.filter(p => state.availability[p][i] === 'available').length,
+    names: PEOPLE.filter(p => state.availability[p][i] === 'available')
+  })).sort((a, b) => b.count - a.count);
+  monthCounts.forEach(d => {
+    text += `${d.month}: ${d.count}/${PEOPLE.length} (${d.names.join(', ') || 'none'})\n`;
+  });
+
+  text += "\n\n🌎 DESTINATIONS\n";
+  text += "─".repeat(30) + "\n";
+  const sorted = [...state.destinations].sort((a, b) => b.votes.length - a.votes.length);
+  sorted.forEach(d => {
+    text += `${d.votes.length} votes · ${d.name} [${d.type === 'intl' ? 'International' : 'Domestic'}]${d.votes.length ? ' (' + d.votes.join(', ') + ')' : ''}\n`;
+  });
+
+  text += "\n\n⏱️ TRIP LENGTH VOTES\n";
+  text += "─".repeat(30) + "\n";
+  PEOPLE.forEach(p => {
+    text += `${p}: ${state.tripLength[p] || 'not voted'}\n`;
+  });
+
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Text summary copied!');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Text summary copied!');
+  });
+}
+
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+// Render all
+function renderAll() {
+  renderWhoTabs();
+  renderMonthGrid();
+  renderOverlap();
+  renderDestinations();
+  renderTripLength();
+}
+renderAll();
+</script>
+</body>
+</html>
