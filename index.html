@@ -35,9 +35,13 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 6px;
+    margin-bottom: 16px;
   }
-  header p { display: none; }
+  .hero-img {
+    width: 100%; max-width: 500px; border-radius: 16px;
+    border: 2px solid var(--border); margin: 0 auto;
+    display: block; object-fit: cover; aspect-ratio: 4/3;
+  }
   .section {
     background: var(--card);
     border-radius: 16px;
@@ -276,6 +280,7 @@
 <div class="container">
   <header>
     <h1>Boys Trip Round 2</h1>
+    <img src="header.jpg" alt="Boys Trip Round 1" class="hero-img">
   </header>
 
   <div class="instructions">
